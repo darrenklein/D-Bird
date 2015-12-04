@@ -1,0 +1,118 @@
+/*
+
+input[type="radio"] {
+-webkit-appearance: none;
+}
+
+
+
+input[type="radio"] + label{
+
+	color:white;
+      font-size:1rem;
+      position:absolute;
+
+      display:inline-block;
+      width:auto;
+
+}
+
+
+
+
+
+
+
+.row.collapse.foundation-radio-button-row {
+	margin-bottom:1rem; //to get the vert/horz center trick to work well, I have to remove the button margin, so I add it to the row instead.
+	border-radius: 10px;
+}
+
+
+*/
+
+
+
+
+fieldset div.foundation-radio-button {
+	padding-left: 0px;
+	padding-right: 0px;
+
+}
+
+
+.foundation-radio-button {
+	position: relative;
+	display:inline-block;
+	text-align: center;
+	height: 41px;
+}
+
+
+input[type="radio"] {
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border-radius: 0px;
+	position: relative;
+	background:  #F7F7F7;
+	margin-bottom: 0em;
+    border-top: 1px solid rgba(200,200,200,1.0);
+    border-right: 1px solid rgba(200,200,200,1.0);
+    border-bottom: 1px solid rgba(200,200,200,1.0);
+    border-left: 0px solid rgba(51,51,51,1.0);
+}
+
+input[type="radio"].first_radio{
+    border-left: 1px solid rgba(200,200,200,1.0);
+}
+
+input[type="radio"]:hover {
+background: #F0F0F0;
+    border-bottom: 1px solid rgba(200,200,200,1.0);
+}
+
+input[type="radio"]:active {
+background: rgba(220,220,220,1.0);
+border-bottom: 1px solid rgba(200,200,200,1.0);
+}
+
+input[type="radio"]:focus {
+background: rgba(220,220,220,1.0);
+border-bottom: 1px solid rgba(200,200,200,1.0);
+}
+
+input[type="radio"]:checked {
+background: rgba(201,201,201,1.0);
+}
+
+
+
+.foundation-radio-button label{
+
+	color:rgba(51,51,51,1.0);
+    font-size:1rem;
+    position:relative;
+    bottom: 35px;
+    display: inline-block;
+    width: auto;
+
+
+}
+
+
+div.row.collapse.foundation-radio-button-row {
+	border-radius: 10px;
+	margin-bottom: .75em;
+}
+
+
+
+
+
+
+	/*
+      position:absolute;
+      top: 11%;
+      left: 10%;
+*/

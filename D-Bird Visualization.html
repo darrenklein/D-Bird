@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+    
+    
+    <head>
+        
+        <link rel="shortcut icon" href="http://d-bird.org/nyca%20fav%20icon.ico">
+        
+        <title>D-Bird Data Visualization</title>
+        
+        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+        
+        <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+
+        
+        
+       
+        <style>
+            
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+            #map {
+                height: 100%;
+                width: 100%;
+                }
+            
+            #counter {
+                background: #FFFFFF;
+                cursor: text;
+                font-family: "Helvetica", Arial;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 12px;
+                color: #666666;
+                height: 25px;
+                width: 80px;
+                padding-top: 5px;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-bottom: 28px;
+                position: absolute;
+                right: 25px;
+                top: 88px;
+                z-index: 5000;
+                vertical-align: middle;
+                border-style: solid;
+                border-color: #999;
+                border-width: 1px;
+                border-radius: 4px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+            }
+            
+            #count {
+                font-weight: bolder;
+                font-size: 14.5px;
+                color: black;
+            }
+            
+            #year {
+                font-size: 12px;
+            }
+        
+            #button_one {
+                background: #FFFFFF;
+                cursor: pointer;
+                font-family: "Helvetica", Arial;
+                font-size: 12px;
+                color: #666666;
+                height: 25px;
+                width: 29px;
+                padding-top: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 0px;
+                position: absolute;
+                left: 20px;
+                right: 25px;
+                top: 88px;
+                z-index: 5000;
+                vertical-align: middle;
+                border-style: solid;
+                border-color: #999;
+                border-width: 1px;
+                border-radius: 4px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+            }
+            
+            #button_one:hover {
+                background: gray;
+            }
+        
+            #button_two {
+                background: #FFFFFF;
+                cursor: pointer;
+                font-family: "Helvetica", Arial;
+                font-size: 12px;
+                color: #666666;
+                height: 25px;
+                width: 29px;
+                padding-top: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 0px;
+                position: absolute;
+                left: 20px;
+                right: 25px;
+                top: 88px;
+                z-index: 5000;
+                vertical-align: middle;
+                border-style: solid;
+                border-color: #999;
+                border-width: 1px;
+                border-radius: 4px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+            }
+            
+            #button_two:hover {
+                background: gray;
+            }          
+            
+        </style>
+
+        
+        <script>
+            
+            $(document).ready(function () {
+                
+                //RETRIEVES CARTODB MAP AS BASELAYER
+                var dataLayer;
+    
+                cartodb.createVis('map', 'http://dklein.cartodb.com/api/v2/viz/76f55326-be2a-11e4-b025-0e4fddd5de28/viz.json', {
+                    cartodb_logo: false,
+                    title: false,
+                    description: false,
+                    search: false,
+                    zoom: 10,
+                    center_lat: 40.722013,
+                    center_lon: -73.998288,
+                })
+                
+                
+            //FUNCTIONS THAT ARE RUN WHEN PAGE IS DONE LOADING    
+                .done(function (vis, layers) {
+                    
+              //SETS ONLOAD LAYER TO CURRENT YEAR WHEN PAGE LOADS       
+                var query = "SELECT * FROM d_bird WHERE DATEFOUND LIKE'%";    
+                var b = new Date();
+                var year = b.getFullYear();
+                        
+                query = query + year + "'";
+                    
+                dataLayer = layers[1].getSubLayer(0).setSQL(query);
+                    
+                    
+                    
+              //FILLS "COUNT" WITH COUNT FROM CURRENT YEAR WHEN PAGE LOADS
+                    
+                var query2 = "http://dklein.cartodb.com/api/v2/sql?q=SELECT%20count(*)%20FROM%20d_bird%20WHERE%20DATEFOUND%20LIKE%27%25";    
+                var b2 = new Date();
+                var year2 = b2.getFullYear();
+                        
+                query2 = query2 + year2 + "%27";
+                    
+                $.getJSON(query2, function (data) {
+               
+                var items = data.rows[0];
+                var count = items.count;
+              
+                $("#count").prepend(count);
+                console.log("Text: " + items.count);
+                });  
+                    
+            });
+               
+                
+            //ADDS 2014 LAYER AND FILLS "COUNT" WITH COUNT FROM 2014 WHEN BUTTON ONE IS CLICKED
+             $('#button_one').click(function () {
+                    dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%2014'");
+                 $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%252014%27", function (data) {
+               
+                var items = data.rows[0];
+                var count = items.count;
+              
+                $("#count").prepend(count);
+                console.log("Text: " + items.count);
+                });
+            });
+     
+           //ADDS 2015 LAYER AND FILLS "COUNT" WITH COUNT FROM 2015 WHEN BUTTON TWO IS CLICKED       
+            $('#button_two').click(function () {
+                    dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%2015'");
+                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%252015%27", function (data) {
+               
+                var items = data.rows[0];
+                var count = items.count;
+              
+                $("#count").prepend(count);
+                console.log("Text: " + items.count);
+                }); 
+            });
+            
+           //EMPTIES "COUNT" WHEN ANY BUTTON IS CLICKED
+            $(document).ready(function(){
+                $(".button").click(function(){
+                $("#count").empty();
+                });
+            });
+                
+            //FILLS 'YEAR' WITH CURRENT YEAR
+            $(document).ready(function(){                  
+                var d = new Date();
+                var n = d.getFullYear();
+                document.getElementById("year").innerHTML = n; 
+             });               
+                         
+        });
+            
+        </script>
+
+        
+    </head>
+    
+    
+    
+    
+    <body>
+        
+        <div id="map"></div>
+        
+        
+        <div id="counter">
+            <p class="count">
+                <a id="count"></a>
+                birds found in
+                <div id="year"></div>
+            </p>
+        </div>
+        
+    
+    
+        <div class="button">  
+            <div id="button_one" onclick="yearfill14()">
+                2014
+                <p id="year"></p>
+                    <script>
+                        function yearfill14() {
+                            document.getElementById("year").innerHTML = "2014";
+                        }
+                    </script>      
+            </div>
+     
+            <div id="button_two" onclick="yearfill15()" style="top: 130px;">
+                2015
+                <p id="year"></p>
+                    <script>
+                        function yearfill15() {
+                            document.getElementById("year").innerHTML = "2015";
+                        }
+                    </script>            
+            </div>
+        </div> 
+    
+    <script>
+    
+    
+    </script>
+        
+               
+    </body>
+    
+    
+    
+</html>
