@@ -120,7 +120,35 @@
             
             #button_two:hover {
                 background: gray;
-            }          
+            }
+            
+            #button_three {
+                background: #FFFFFF;
+                cursor: pointer;
+                font-family: "Helvetica", Arial;
+                font-size: 12px;
+                color: #666666;
+                height: 25px;
+                width: 29px;
+                padding-top: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 0px;
+                position: absolute;
+                left: 20px;
+                right: 25px;
+                z-index: 5000;
+                vertical-align: middle;
+                border-style: solid;
+                border-color: #999;
+                border-width: 1px;
+                border-radius: 4px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+            }
+            
+            #button_three:hover {
+                background: gray;
+            } 
             
         </style>
 
@@ -202,6 +230,24 @@
                 console.log("Text: " + items.count);
                 }); 
             });
+                
+                
+                
+            $('#button_three').click(function () {
+                    dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%2016'");
+                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%252016%27", function (data) {
+               
+                var items = data.rows[0];
+                var count = items.count;
+              
+                $("#count").prepend(count);
+                console.log("Text: " + items.count);
+                }); 
+            });
+                
+                
+                
+                
             
            //EMPTIES "COUNT" WHEN ANY BUTTON IS CLICKED
             $(document).ready(function(){
@@ -262,6 +308,18 @@
                         }
                     </script>            
             </div>
+            
+            <div id="button_three" onclick="yearfill16()" style="top: 172px;">
+                2016
+                <p id="year"></p>
+                    <script>
+                        function yearfill16() {
+                            document.getElementById("year").innerHTML = "2016";
+                        }
+                    </script>            
+            </div>
+            
+            
         </div> 
     
     <script>
