@@ -5,16 +5,10 @@
     <head>
         
         <link rel="shortcut icon" href="http://d-bird.org/nyca%20fav%20icon.ico">
-        
         <title>D-Bird Data Visualization</title>
-        
         <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-        
         <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
 
-        
-        
-       
         <style>
             
             html, body {
@@ -22,10 +16,41 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
+                }
+            
+            #button_group{
+                position: absolute;
+                z-index: 2;
+                left: 20px;
+                top: 88px;
             }
+        
+            .year_button {
+                background: #FFFFFF;
+                cursor: pointer;
+                font-family: "Helvetica", Arial;
+                font-size: 12px;
+                padding: 10px;
+                margin: 4px;
+                color: #666666;
+                vertical-align: middle;
+                border-style: solid;
+                border-color: #999;
+                border-width: 1px;
+                border-radius: 4px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+                }
+            
+            .year_button:hover {
+                background: gray;
+            }
+            
+            
             #map {
+                position: absolute;
                 height: 100%;
                 width: 100%;
+                z-index: 1;
                 }
             
             #counter {
@@ -45,114 +70,45 @@
                 position: absolute;
                 right: 25px;
                 top: 88px;
-                z-index: 5000;
+                z-index: 2;
                 vertical-align: middle;
                 border-style: solid;
                 border-color: #999;
                 border-width: 1px;
                 border-radius: 4px;
                 box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
-            }
+                }
             
             #count {
                 font-weight: bolder;
                 font-size: 14.5px;
                 color: black;
-            }
+                display: inline;
+                }
             
             #year {
-                font-size: 12px;
-            }
-        
-            #button_one {
-                background: #FFFFFF;
-                cursor: pointer;
-                font-family: "Helvetica", Arial;
-                font-size: 12px;
-                color: #666666;
-                height: 25px;
-                width: 29px;
-                padding-top: 10px;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-bottom: 0px;
-                position: absolute;
-                left: 20px;
-                right: 25px;
-                top: 88px;
-                z-index: 5000;
-                vertical-align: middle;
-                border-style: solid;
-                border-color: #999;
-                border-width: 1px;
-                border-radius: 4px;
-                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
-            }
-            
-            #button_one:hover {
-                background: gray;
-            }
-        
-            #button_two {
-                background: #FFFFFF;
-                cursor: pointer;
-                font-family: "Helvetica", Arial;
-                font-size: 12px;
-                color: #666666;
-                height: 25px;
-                width: 29px;
-                padding-top: 10px;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-bottom: 0px;
-                position: absolute;
-                left: 20px;
-                right: 25px;
-                top: 88px;
-                z-index: 5000;
-                vertical-align: middle;
-                border-style: solid;
-                border-color: #999;
-                border-width: 1px;
-                border-radius: 4px;
-                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
-            }
-            
-            #button_two:hover {
-                background: gray;
-            }
-            
-            #button_three {
-                background: #FFFFFF;
-                cursor: pointer;
-                font-family: "Helvetica", Arial;
-                font-size: 12px;
-                color: #666666;
-                height: 25px;
-                width: 29px;
-                padding-top: 10px;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-bottom: 0px;
-                position: absolute;
-                left: 20px;
-                right: 25px;
-                z-index: 5000;
-                vertical-align: middle;
-                border-style: solid;
-                border-color: #999;
-                border-width: 1px;
-                border-radius: 4px;
-                box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
-            }
-            
-            #button_three:hover {
-                background: gray;
-            } 
-            
-        </style>
+                font-size: 13px;
+                }
 
+        </style>
         
+    </head>
+    
+    
+    <body>
+        
+        <div id="map"></div>
+        
+        <div id="counter">
+            <div id="count"></div> birds found in<div id="year"></div>
+        </div>
+        
+        <div id="button_group">              
+            <button class="year_button" value="2014">2014</button></p>
+            <button class="year_button" value="2015">2015</button></p>
+            <button class="year_button" value="2016">2016</button>  
+        </div> 
+    
         <script>
             
             $(document).ready(function () {
@@ -183,10 +139,14 @@
                     
                 dataLayer = layers[1].getSubLayer(0).setSQL(query);
                     
+                //FILLS 'YEAR' WITH CURRENT YEAR
+                var d = new Date();
+                var n = d.getFullYear();
+                document.getElementById("year").innerHTML = n; 
                     
                     
-              //FILLS "COUNT" WITH COUNT FROM CURRENT YEAR WHEN PAGE LOADS
                     
+                //FILLS "COUNT" WITH COUNT FROM CURRENT YEAR WHEN PAGE LOADS  
                 var query2 = "http://dklein.cartodb.com/api/v2/sql?q=SELECT%20count(*)%20FROM%20d_bird%20WHERE%20DATEFOUND%20LIKE%27%25";    
                 var b2 = new Date();
                 var year2 = b2.getFullYear();
@@ -199,133 +159,32 @@
                 var count = items.count;
               
                 $("#count").prepend(count);
-                console.log("Text: " + items.count);
                 });  
                     
             });
-               
                 
-            //ADDS 2014 LAYER AND FILLS "COUNT" WITH COUNT FROM 2014 WHEN BUTTON ONE IS CLICKED
-             $('#button_one').click(function () {
-                    dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%2014'");
-                 $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%252014%27", function (data) {
-               
-                var items = data.rows[0];
-                var count = items.count;
-              
-                $("#count").prepend(count);
-                console.log("Text: " + items.count);
-                });
-            });
-     
-           //ADDS 2015 LAYER AND FILLS "COUNT" WITH COUNT FROM 2015 WHEN BUTTON TWO IS CLICKED       
-            $('#button_two').click(function () {
-                    dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%2015'");
-                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%252015%27", function (data) {
+    
+                
+            //DISPLAYS LAYER, CHANGES COUNT, CHANGES YEAR
+             $('.year_button').click(function () {
+                 
+                year = $(this).val();
+                document.getElementById("year").innerHTML = year;
+                 
+                dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%"+year+"'");
+                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%25"+year+"%27", function (data) {
                
                 var items = data.rows[0];
                 var count = items.count;
               
-                $("#count").prepend(count);
-                console.log("Text: " + items.count);
-                }); 
-            });
-                
-                
-                
-            $('#button_three').click(function () {
-                    dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%2016'");
-                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%252016%27", function (data) {
-               
-                var items = data.rows[0];
-                var count = items.count;
-              
-                $("#count").prepend(count);
-                console.log("Text: " + items.count);
-                }); 
-            });
-                
-                
-                
-                
-            
-           //EMPTIES "COUNT" WHEN ANY BUTTON IS CLICKED
-            $(document).ready(function(){
-                $(".button").click(function(){
                 $("#count").empty();
+                $("#count").prepend(count);
                 });
             });
-                
-            //FILLS 'YEAR' WITH CURRENT YEAR
-            $(document).ready(function(){                  
-                var d = new Date();
-                var n = d.getFullYear();
-                document.getElementById("year").innerHTML = n; 
-             });               
-                         
+          
         });
             
         </script>
-
-        
-    </head>
-    
-    
-    
-    
-    <body>
-        
-        <div id="map"></div>
-        
-        
-        <div id="counter">
-            <p class="count">
-                <a id="count"></a>
-                birds found in
-                <div id="year"></div>
-            </p>
-        </div>
-        
-    
-    
-        <div class="button">  
-            <div id="button_one" onclick="yearfill14()">
-                2014
-                <p id="year"></p>
-                    <script>
-                        function yearfill14() {
-                            document.getElementById("year").innerHTML = "2014";
-                        }
-                    </script>      
-            </div>
-     
-            <div id="button_two" onclick="yearfill15()" style="top: 130px;">
-                2015
-                <p id="year"></p>
-                    <script>
-                        function yearfill15() {
-                            document.getElementById("year").innerHTML = "2015";
-                        }
-                    </script>            
-            </div>
-            
-            <div id="button_three" onclick="yearfill16()" style="top: 172px;">
-                2016
-                <p id="year"></p>
-                    <script>
-                        function yearfill16() {
-                            document.getElementById("year").innerHTML = "2016";
-                        }
-                    </script>            
-            </div>
-            
-            
-        </div> 
-    
-    <script>
-    
-    
-    </script>
         
                
     </body>
