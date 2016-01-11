@@ -46,9 +46,9 @@
     
        
             $servername = "localhost";
-            $username = "*****";
-            $password = "*******";
-            $dbname = "******";
+            $username = "****";
+            $password = "****";
+            $dbname = "****";
 
             $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
@@ -80,8 +80,11 @@ $notes = str_replace("'", "", $notes);
          $sql = "INSERT INTO Master_List (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url, source)
 VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'http://www.d-bird.org/$target_file', 'nyc audubon');";
 
-$sql .= "INSERT INTO NYC_Audubon (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url)
-VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'http://www.d-bird.org/$target_file');";
+mysqli_query($conn, $sql);
+$master_id = mysqli_insert_id($conn);
+
+$sql = "INSERT INTO NYC_Audubon (Master_ID, date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url)
+VALUES ('$master_id', '$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'http://www.d-bird.org/$target_file');";
 
 
 
@@ -90,9 +93,9 @@ VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$
 
 
 
-$cartodb_username = "dklein";
+$cartodb_username = "****";
 
-$api_key= "819b0c5916868603c2cd39fbf7e32c7590224a21";
+$api_key= "****";
 
 $cartoDBsql .= "INSERT INTO d_bird(datefound,deadinjured,lati,longi,species,the_geom) VALUES('$date','$deadinjured','$latitude','$longitude','$species',ST_SetSRID(ST_MakePoint($longitude,$latitude),4326))";
 
@@ -113,14 +116,12 @@ $result_not_parsed = curl_exec($ch);
 
 
 if ($conn->multi_query($sql) === TRUE) {
+	$conn->close();
     header("Location:http://d-bird.org/thank%20you.html");
 
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-
-$conn->close();
-
 
             
     } 
@@ -174,9 +175,9 @@ $conn->close();
     
        
             $servername = "localhost";
-            $username = "*****";
-            $password = "*******";
-            $dbname = "******";
+            $username = "****";
+            $password = "*****";
+            $dbname = "****";
 
             $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
@@ -208,8 +209,11 @@ $notes = str_replace("'", "", $notes);
          $sql = "INSERT INTO Master_List (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url, source)
 VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'http://www.d-bird.org/$target_file', 'nyc audubon');";
 
-$sql .= "INSERT INTO NYC_Audubon (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url)
-VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'http://www.d-bird.org/$target_file');";
+mysqli_query($conn, $sql);
+$master_id = mysqli_insert_id($conn);
+
+$sql = "INSERT INTO NYC_Audubon (Master_ID, date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url)
+VALUES ('$master_id', '$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'http://www.d-bird.org/$target_file');";
 
 
 
@@ -218,9 +222,9 @@ VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$
 
 
 
-$cartodb_username = "dklein";
+$cartodb_username = "****";
 
-$api_key= "819b0c5916868603c2cd39fbf7e32c7590224a21";
+$api_key= "*****";
 
 $cartoDBsql .= "INSERT INTO d_bird(datefound,deadinjured,lati,longi,species,the_geom) VALUES('$date','$deadinjured','$latitude','$longitude','$species',ST_SetSRID(ST_MakePoint($longitude,$latitude),4326))";
 
@@ -241,13 +245,12 @@ $result_not_parsed = curl_exec($ch);
 
 
 if ($conn->multi_query($sql) === TRUE) {
+	$conn->close();
     header("Location:http://d-bird.org/thank%20you.html");
 
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-
-$conn->close();
 
 
             
@@ -270,8 +273,8 @@ $conn->close();
     else{
             $servername = "localhost";
             $username = "****";
-            $password = "******";
-            $dbname = "*****";
+            $password = "****";
+            $dbname = "****";
 
             $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
@@ -301,22 +304,22 @@ $notes = $_POST['notes'];
 $notes = str_replace("'", "", $notes);
 
 
-
          $sql = "INSERT INTO Master_List (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, source)
 VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes', 'nyc audubon');";
 
-$sql .= "INSERT INTO NYC_Audubon (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes)
-VALUES ('$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes');";
+mysqli_query($conn, $sql);
+$master_id = mysqli_insert_id($conn);
+
+$sql = "INSERT INTO NYC_Audubon (Master_ID, date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes)
+VALUES ('$master_id', '$date', '$time', '$latitude', '$longitude', '$accuracy', '$species', '$deadinjured', '$sex', '$age', '$name', '$contact_info', '$notes');";
 
 
 
 
 
 
-
-
-$cartodb_username = "dklein";
-$api_key= "819b0c5916868603c2cd39fbf7e32c7590224a21";
+$cartodb_username = "*****";
+$api_key= "******";
 
 $cartoDBsql .= "INSERT INTO d_bird(datefound,deadinjured,lati,longi,species,the_geom) VALUES('$date','$deadinjured','$latitude','$longitude','$species',ST_SetSRID(ST_MakePoint($longitude,$latitude),4326))";
 
@@ -337,13 +340,14 @@ $result_not_parsed = curl_exec($ch);
 
 
             if ($conn->multi_query($sql) === TRUE) {
+            	 $conn->close();
                 header("Location:http://d-bird.org/thank%20you.html");
                 } 
             else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
-            $conn->close();
+           
     
 };
     
