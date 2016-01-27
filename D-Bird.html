@@ -5,6 +5,7 @@
 
     <link rel="shortcut icon" href="http://d-bird.org/images/nyca-fav-icon.ico">
     
+    <!--THIS META TAG IS NECESSARY FOR FOUNDATION TO WORK-->
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' >
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 
@@ -399,8 +400,9 @@
 
 
                     <div class="show-for-small-only">
-                    <label>Upload an image of the bird</label>
-                    <input type="file" name="fileToUploadMobile" id="fileToUploadMobile">
+                        <label>Upload an image of the bird</label>
+                        <input type="file" name="fileToUploadMobile" id="fileToUploadMobile">
+                        <div id="clearMobile">Remove image</div>
                     </div>
                 
 
@@ -473,8 +475,9 @@
                                 <h4>4. Additional Observations</h4>
 
                                     <div class="show-for-medium-up">
-                                    <label>Upload an image of the bird  (Only .jpeg, .jpg, .png, .gif, .tif, or .tiff, please)</label>
-                                    <input type="file" name="fileToUpload" id="fileToUpload">
+                                        <label>Upload an image of the bird  (Only .jpeg, .jpg, .png, .gif, .tif, or .tiff, please)</label>
+                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                        <div id="clear">Remove image</div>
                                     </div>
                             
                     
@@ -755,6 +758,22 @@ To learn more about D-Bird and to see a map of D-Bird results, <a href="http://w
                 $("#submitDiv").append('<div id="submitting" class="animated flash small-12 columns">Submitting...</div>');
             };
         });
+        
+        
+        
+     //CLEARS ATTACHED FILE
+    var file = $("#fileToUpload");
+
+    $("#clear").on("click", function () {
+        file.replaceWith(file = file.clone(true));
+    });
+        
+    var mobile_file = $("#fileToUploadMobile");
+
+    $("#clearMobile").on("click", function () {
+        mobile_file.replaceWith(mobile_file = mobile_file.clone(true));
+    });
+        
         
     </script>
 

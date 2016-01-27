@@ -385,8 +385,9 @@
 
 
                     <div class="show-for-small-only">
-                    <label>Upload an image of the bird</label>
-                    <input type="file" name="fileToUploadMobile" id="fileToUploadMobile">
+                        <label>Upload an image of the bird</label>
+                        <input type="file" name="fileToUploadMobile" id="fileToUploadMobile">
+                        <div id="clearMobile">Remove image</div>
                     </div>
                 
 
@@ -669,6 +670,13 @@
                 $("#ss-submit").hide();
                 $("#submitDiv").append('<div id="submitting" class="animated flash small-12 columns">Submitting...</div>');
             };
+        });
+        
+        
+        var mobile_file = $("#fileToUploadMobile");
+
+        $("#clearMobile").on("click", function () {
+            mobile_file.replaceWith(mobile_file = mobile_file.clone(true));
         });
         
                         

@@ -200,4 +200,17 @@ button:active{
     font-size: 1rem;
 }
 
+#fileToUploadMobile{
+    width: 65%;
+}
 
+#clearMobile{
+    display: inline-block;
+    color: #FF0000;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#clearMobile:hover{
+    color: #AF0000;
+}
