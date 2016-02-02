@@ -199,12 +199,11 @@
    
 
        
-        <!-- CUSTOM THANK YOU PAGE -->  
-          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://d-bird.org/thank%20you.html';}"></iframe>
           
           <form action="D-Bird.php" method="POST" enctype="multipart/form-data" id="ss-form" name="form">
           
-              <!-- CUSTOM THANK YOU PAGE -->
+              
+              <input type="text" id="honey" name="honey"></input>
               
 
           
@@ -215,7 +214,7 @@
               
 
               
-                          <div class="row">
+                <div class="row">
                 <div class="small-12 medium-12 large-12 columns">
                     <div class="panel">
                 
@@ -542,6 +541,8 @@ To learn more about D-Bird and to see a map of D-Bird results, <a href="http://w
 
 
     <script>
+        
+        $("#honey").hide()
         
         
         //MAP FUNCTIONS

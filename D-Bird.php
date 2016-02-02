@@ -1,5 +1,16 @@
 <?php
 
+ /*TO DETER SPAMBOTS*/
+ $honey = $_POST['honey'];
+ $honey = (string)$honey;
+ $honeyLength = strlen($honey);
+    	
+  if($honeyLength > 0){
+    header("Location:http://d-bird.org/thank%20you.html");
+  }
+  
+  else{
+
 
     $target_dir = "uploads/";
     
@@ -8,8 +19,7 @@
     $mobi_file = $_FILES["fileToUploadMobile"]["name"];
     
 
-   
-  
+
     
     if ($file){
         //ADDED RANDOM NUMBER METHOD TO ENSURE GENERATION OF UNIQUE URL FOR EACH PHOTO
@@ -349,6 +359,8 @@ $result_not_parsed = curl_exec($ch);
 
            
     
+};
+      
 };
     
 
