@@ -229,4 +229,7 @@ button:active{
     color: #AF0000;
 }
 
-
+input[type="text"][readonly]{
+	background-color: white;
+	cursor: text;
+}
