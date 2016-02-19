@@ -1,25 +1,54 @@
 <?php
 
- /*TO DETER SPAMBOTS*/
+$servername = "localhost";
+$username = "****";
+$password = "****";
+$dbname = "*****";
+
+$date = $_POST['date'];
+$time = $_POST['time'];
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
+$accuracy = $_POST['accuracy'];
+$species = $_POST['species'];
+$deadinjured = $_POST['deadinjured'];
+$sex = $_POST['sex'];
+$age = $_POST['age'];
+
+$name = $_POST['name'];
+$name = str_replace("'", "", $name);
+
+$contact_info = $_POST['contact_info'];
+$contact_info = str_replace("'", "", $contact_info);
+
+$notes = $_POST['notes'];
+$notes = str_replace("'", "", $notes);
+
+
+//TO DETER SPAMBOTS...
  $honey = $_POST['honey'];
  $honey = (string)$honey;
  $honeyLength = strlen($honey);
     	
-  if($honeyLength > 0){
+  if($honeyLength > 0 || $latitude == 0){
     header("Location:http://d-bird.org/thank%20you.html");
   }
   
+  
+
+
+
+  
+  
   else{
-
-
+    
     $target_dir = "uploads/";
-    
     $file = $_FILES["fileToUpload"]["name"];
-    
     $mobi_file = $_FILES["fileToUploadMobile"]["name"];
     
 
-
+   
+  
     
     if ($file){
         //ADDED RANDOM NUMBER METHOD TO ENSURE GENERATION OF UNIQUE URL FOR EACH PHOTO
@@ -55,10 +84,7 @@
             //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     
        
-            $servername = "localhost";
-            $username = "****";
-            $password = "****";
-            $dbname = "****";
+
 
             $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
@@ -66,25 +92,7 @@
                     } 
 
 
-            //TO MYSQL
-$date = $_POST['date'];
-$time = $_POST['time'];
-$latitude = $_POST['latitude'];
-$longitude = $_POST['longitude'];
-$accuracy = $_POST['accuracy'];
-$species = $_POST['species'];
-$deadinjured = $_POST['deadinjured'];
-$sex = $_POST['sex'];
-$age = $_POST['age'];
 
-$name = $_POST['name'];
-$name = str_replace("'", "", $name);
-
-$contact_info = $_POST['contact_info'];
-$contact_info = str_replace("'", "", $contact_info);
-
-$notes = $_POST['notes'];
-$notes = str_replace("'", "", $notes);
 
 
          $sql = "INSERT INTO Master_List (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url, source)
@@ -103,9 +111,9 @@ VALUES ('$master_id', '$date', '$time', '$latitude', '$longitude', '$accuracy', 
 
 
 
-$cartodb_username = "****";
+$cartodb_username = "***";
 
-$api_key= "****";
+$api_key= "*****";
 
 $cartoDBsql .= "INSERT INTO d_bird(datefound,deadinjured,lati,longi,species,the_geom) VALUES('$date','$deadinjured','$latitude','$longitude','$species',ST_SetSRID(ST_MakePoint($longitude,$latitude),4326))";
 
@@ -184,10 +192,6 @@ if ($conn->multi_query($sql) === TRUE) {
             //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     
        
-            $servername = "localhost";
-            $username = "****";
-            $password = "*****";
-            $dbname = "****";
 
             $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
@@ -195,25 +199,6 @@ if ($conn->multi_query($sql) === TRUE) {
                     } 
 
 
-            //TO MYSQL
-$date = $_POST['date'];
-$time = $_POST['time'];
-$latitude = $_POST['latitude'];
-$longitude = $_POST['longitude'];
-$accuracy = $_POST['accuracy'];
-$species = $_POST['species'];
-$deadinjured = $_POST['deadinjured'];
-$sex = $_POST['sex'];
-$age = $_POST['age'];
-
-$name = $_POST['name'];
-$name = str_replace("'", "", $name);
-
-$contact_info = $_POST['contact_info'];
-$contact_info = str_replace("'", "", $contact_info);
-
-$notes = $_POST['notes'];
-$notes = str_replace("'", "", $notes);
 
 
          $sql = "INSERT INTO Master_List (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, upload_url, source)
@@ -232,9 +217,9 @@ VALUES ('$master_id', '$date', '$time', '$latitude', '$longitude', '$accuracy', 
 
 
 
-$cartodb_username = "****";
+$cartodb_username = "******";
 
-$api_key= "*****";
+$api_key= "*******";
 
 $cartoDBsql .= "INSERT INTO d_bird(datefound,deadinjured,lati,longi,species,the_geom) VALUES('$date','$deadinjured','$latitude','$longitude','$species',ST_SetSRID(ST_MakePoint($longitude,$latitude),4326))";
 
@@ -281,37 +266,14 @@ if ($conn->multi_query($sql) === TRUE) {
 
 
     else{
-            $servername = "localhost";
-            $username = "****";
-            $password = "****";
-            $dbname = "****";
+
 
             $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                     } 
 
-	
 
-            //TO MYSQL
-$date = $_POST['date'];
-$time = $_POST['time'];
-$latitude = $_POST['latitude'];
-$longitude = $_POST['longitude'];
-$accuracy = $_POST['accuracy'];
-$species = $_POST['species'];
-$deadinjured = $_POST['deadinjured'];
-$sex = $_POST['sex'];
-$age = $_POST['age'];
-
-$name = $_POST['name'];
-$name = str_replace("'", "", $name);
-
-$contact_info = $_POST['contact_info'];
-$contact_info = str_replace("'", "", $contact_info);
-
-$notes = $_POST['notes'];
-$notes = str_replace("'", "", $notes);
 
 
          $sql = "INSERT INTO Master_List (date, time, latitude, longitude, accuracy, species, deadinjured, sex, age, name, contact_info, notes, source)
@@ -328,8 +290,8 @@ VALUES ('$master_id', '$date', '$time', '$latitude', '$longitude', '$accuracy', 
 
 
 
-$cartodb_username = "*****";
-$api_key= "******";
+$cartodb_username = "******";
+$api_key= "*******";
 
 $cartoDBsql .= "INSERT INTO d_bird(datefound,deadinjured,lati,longi,species,the_geom) VALUES('$date','$deadinjured','$latitude','$longitude','$species',ST_SetSRID(ST_MakePoint($longitude,$latitude),4326))";
 
@@ -359,10 +321,10 @@ $result_not_parsed = curl_exec($ch);
 
            
     
+    };
 };
-      
-};
-    
+   
+
 
 
 ?>
