@@ -48,7 +48,7 @@
     
 	<script>
 		$(function() {
-		$( "#entry_1089406598" ).datepicker({maxDate: "+0D" });
+		$( "#entry_1089406598" ).datepicker({maxDate: "+0D" , dateFormat: "yy-mm-dd"});
 		});
 	</script>
 	<!-- NEW DATEPICKER -->
@@ -597,80 +597,7 @@ To learn more about D-Bird and to see a map of D-Bird results, <a href="http://w
         
         
 
-        /*
-        //GET CURRENT LOCATION, DATE, TIME BUTTON
-        function getLocation() {
-            
-                        $("#mobileLocation").addClass("visible");
-                        
-                        var lati;
-                        var longi;
-                        var accuracy;
-            
-            
-                        var d;
-                        var n;
-                        var now;
-                        var hh;
-                        var min;
-                        var ampm;
-                        var time;
-                                        
-                        d = new Date();
-                        n = d.toLocaleDateString();
-                        d.getDate(d.getDate() + 20);
-                        n = ('0' + (d.getMonth()+1)).slice(-2) + '/'
-                        + ('0' + d.getDate()).slice(-2) + '/'
-                        + d.getFullYear();
-                            
-                        now = new Date();
-                        hh = now.getHours();
-                        min = now.getMinutes();
-                        ampm = (hh>=12)?'pm':'am';
-                        hh = hh%12;
-                        hh = hh?hh:12;
-                        min = min<10?'0'+min:min;				
-                        time = hh+":"+min+""+ampm;
-                                        
-                        document.getElementById("entry_1089406598").value = n;
-                        document.getElementById("entry_1322686028").value = time;
-                            
-                        
-                        function setIntervalX(callback, delay, repetitions) {
-                            
-                            var x = 0;
-                            var intervalID = window.setInterval(function () {
-
-                                callback();
-
-                                    if (++x === repetitions) {
-                                        window.clearInterval(intervalID);
-                                        }
-                                
-                                }, delay);
-                            }
-                        
-                        
-                            setIntervalX(function () {
-                        
-                                navigator.geolocation.getCurrentPosition(showPosition, null, {maximumAge: 0, timeout: Infinity, enableHighAccuracy: true});
-                        
-                            
-                                function showPosition(position) {
-                            
-                                    lati = position.coords.latitude;
-                                    longi = position.coords.longitude;
-                                    accuracy = position.coords.accuracy;
-                        
-                                    document.getElementById("entry_563161073").value=lati;
-                                    document.getElementById("entry_195156901").value=longi;
-                                    document.getElementById("entry_2041415505").value=accuracy + " meters";
-                            
-                                } 
-                        
-                            }, 2000, 5);
-                         
-                        }*/
+       
                         
         function getLocation() {
                     
@@ -698,9 +625,7 @@ To learn more about D-Bird and to see a map of D-Bird results, <a href="http://w
                         d = new Date();
                         n = d.toLocaleDateString();
                         d.getDate(d.getDate() + 20);
-                        n = ('0' + (d.getMonth()+1)).slice(-2) + '/'
-                        + ('0' + d.getDate()).slice(-2) + '/'
-                        + d.getFullYear();
+                        n = d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
                             
                         now = new Date();
                         hh = now.getHours();
