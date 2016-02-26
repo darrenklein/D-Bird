@@ -131,11 +131,11 @@
                 .done(function (vis, layers) {
                     
               //SETS ONLOAD LAYER TO CURRENT YEAR WHEN PAGE LOADS       
-                var query = "SELECT * FROM d_bird WHERE DATEFOUND LIKE'%";    
+                var query = "SELECT * FROM d_bird WHERE DATE_PART('year', datefound) = ";    
                 var b = new Date();
                 var year = b.getFullYear();
                         
-                query = query + year + "'";
+                query = query + year;
                     
                 dataLayer = layers[1].getSubLayer(0).setSQL(query);
                     
@@ -147,11 +147,11 @@
                     
                     
                 //FILLS "COUNT" WITH COUNT FROM CURRENT YEAR WHEN PAGE LOADS  
-                var query2 = "http://dklein.cartodb.com/api/v2/sql?q=SELECT%20count(*)%20FROM%20d_bird%20WHERE%20DATEFOUND%20LIKE%27%25";    
+                var query2 = "http://dklein.cartodb.com/api/v2/sql?q=SELECT%20count(*)%20FROM%20d_bird%20WHERE%20DATE_PART(%27year%27%2Cdatefound)%20%3D";    
                 var b2 = new Date();
                 var year2 = b2.getFullYear();
                         
-                query2 = query2 + year2 + "%27";
+                query2 = query2 + year2;
                     
                 $.getJSON(query2, function (data) {
                
@@ -171,8 +171,8 @@
                 year = $(this).val();
                 document.getElementById("year").innerHTML = year;
                  
-                dataLayer.setSQL("SELECT * FROM d_bird where datefound like '%"+year+"'");
-                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20where%20datefound%20like%20%27%25"+year+"%27", function (data) {
+                dataLayer.setSQL("SELECT * FROM d_bird WHERE DATE_PART('year', datefound) = "+year+"");
+                $.getJSON("http://dklein.cartodb.com/api/v2/sql?q=SELECT%20COUNT%20(*)%20FROM%20d_bird%20WHERE%20DATE_PART(%27year%27%2Cdatefound)%20%3D"+year+"", function (data) {
                
                 var items = data.rows[0];
                 var count = items.count;
